@@ -10,20 +10,31 @@
     <p>Slogan del Sitio</p>
 </div>
 
+
+
 <div>
-    @foreach (var serie in Model)
+    @foreach (Serie serie in ViewBag.Series)
     {
-        <div class="card">
-            <img src="@Url.Content(serie.ImagenSerie)" alt="Imagen de la serie">
-            <h2>@serie.Nombre</h2>
-            <a href="#" class="info-link" data-info="@serie.Sinopsis">Link a Información</a>
-            <a href="#" class="temporadas-link" data-temporadas="@serie.Id">Link a Temporadas</a>
-            <a href="#" class="actores-link" data-actores="@serie.Id">Link a Actores</a>
+        <div class="card" style="width: 18rem;">
+            <img src="@Url.Content(serie.ImagenSerie)" class="card-img-top" alt="Imagen de la serie">
+            <div class="card-body">
+                <h5 class="card-title">@serie.Nombre</h5>
+                <p class="card-text">@serie.Sinopsis</p>
+                <a href="#" class="btn btn-primary info-link" data-info="@serie.Sinopsis">Link a Información</a>
+                <a href="#" class="btn btn-primary temporadas-link" data-temporadas="@serie.Id">Link a Temporadas</a>
+                <a href="#" class="btn btn-primary actores-link" data-actores="@serie.Id">Link a Actores</a>
+               <a href="#" class="btn btn-primary info-link" data-toggle="modal" data-target="#serieModal" data-info="@serie.Sinopsis">Más información</a>
+                <a href="#" class="btn btn-primary temporadas-link" data-toggle="modal" data-target="#serieModal" data-temporadas="@serie.Id">Temporadas</a>
+            <a href="#" class="btn btn-primary actores-link" data-toggle="modal" data-target="#serieModal" data-actores="@serie.Id">Actores</a>
+</div>
         </div>
     }
 </div>
 
-<!-- Modal para mostrar información -->
+
+
+
+
 <div id="infoModal" class="modal">
     <div class="modal-content">
         <span class="close" id="infoModalClose">&times;</span>
@@ -32,6 +43,7 @@
     </div>
 </div>
 
-<!-- Agregar modales para Temporadas y Actores -->
+
+
 
 <script src="site.js"></script>

@@ -6,7 +6,7 @@ namespace TP10.Models
 {
     public static class BD
     {
-        private static string ConnectionString = @"Server=DESKTOP-E3OHN6P\SQLEXPRESS01; Database=BDSeries; Trusted_Connection=True";
+        private static string ConnectionString = @"Server=localhost; Database=BDSeries; Trusted_Connection=True";
 
         public static List<Serie> GetSeries()
         {
