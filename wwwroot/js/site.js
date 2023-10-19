@@ -1,42 +1,65 @@
-﻿$(document).ready(function () {
-    $(".info-link").click(function () {
-        var info = $(this).data("info");
-        $("#infoModalContent").text(info);
-        $("#infoModal").show();
-    });
-
-    $(".temporadas-link").click(function () {
-        var serieId = $(this).data("temporadas");
-
-        $.ajax({
-            url: "/Series/Temporadas/" + serieId,
-            type: "GET",
-            success: function (data) {
-
-            },
-            error: function (error) {
-
-            }
+﻿
+function cargarYMostrarTemporadas(serieId) {
+    $.ajax({
+        url: "/Home/GetTemporadasSerieAjax/" ,
+        type: "POST",
+        dataType: "JSON",
+        success: 
+         function (response) {
+          
+          
+            console.log(response)
+          let temporadaHtml = '';
+          for(let i = 0; i<response.length; i++)
+          {
+            temporadaHtml+= response[i].numeroTemporada + ' - ' + response.tituloTemporada
+          }
+          $('#info').html(temporadaHtml);
+          $('#nombreModal').html("Temporadas")
+        }
         });
+      
+}
+
+
+function cargarYMostrarActores(serieId) {
+    $.ajax({
+        url: "/Home/GetActoresSerieAjax/" ,
+        type: "POST",
+        dataType: "JSON",
+        success: 
+        
+        function (response) {
+          
+          
+            console.log(response)
+          let actoresHtml = '';
+          for(let i = 0; i<response.length; i++)
+          {
+            actoresHtml+= response[i]
+          }
+          $('#info').html(actoresHtml);
+          $('#nombreModal').html("Actores")
+        }
+      
     });
+}
 
-    $(".actores-link").click(function () {
-        var serieId = $(this).data("actores");
+function MasInfo(serieId)
+{
+$.ajax(
+{
+    url: "/Home/GetMasInfo/" ,
+    type: "POST",
+    data: {Serieid:serieId},
+    success:
+    function(response)
+    {
+        console.log(response)
+        $('#info').html("Sinopsis: " + response.sinopsis + "Año Inicio " + response.añoInicio)
+        $('#nombreModal').html("Mas Info");
+    }
+}
 
-
-        $.ajax({
-            url: "/Series/Actores/" + serieId,
-            type: "GET",
-            success: function (data) {
-
-            },
-            error: function (error) {
-
-            }
-        });
-    });
-
-    $("#infoModalClose").click(function () {
-        $("#infoModal").hide();
-    });
-});
+);
+}

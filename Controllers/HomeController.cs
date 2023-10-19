@@ -17,10 +17,20 @@ public class HomeController : Controller
     public IActionResult Index()
     {
           
-            var series = BD.GetSeries();
-            ViewBag.Series = series;
-            return View();
-        
+        ViewBag.Series = BD.GetSeries();
+        return View();
+    }
+
+    public List<Temporada> GetTemporadasSerieAjax(int idSerie){
+        return BD.GetTemporadas(idSerie);
+    }
+
+    public List<Actor> GetActoresSerieAjax(int idSerie){
+        return BD.GetActores(idSerie);
+    }
+
+    public Serie GetMasInfo(int idSerie){
+        return GetMasInfo(idSerie);
     }
 
     public IActionResult Privacy()

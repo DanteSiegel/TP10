@@ -1,49 +1,65 @@
-﻿@model List<Serie>
+﻿@foreach (Serie serie in ViewBag.Series)
+{
+    <div class="card" style="width: 18rem;">
+        <img src="@Url.Content(serie.ImagenSerie)" class="card-img-top" alt="Imagen de la serie">
+        <div class="card-body">
+            <h5 class="card-title">@serie.Nombre</h5>
 
-@{
-    ViewBag.Title = "Series";
+            <a href="#" class="btn btn-primary info-link" data-toggle="modal" data-target="#serieModal-@serie.Id" data-info="@serie.Sinopsis">Más información</a>
+            <a href="#" onclick="cargarYMostrarTemporadas(@serie.Id)" class="btn btn-primary temporadas-link" data-toggle="modal" data-target="#temporadasModal-@serie.Id" data-temporadas="@serie.Id">Temporadas</a>
+            <a href="#" onclick="cargarYMostrarActores(@serie.Id)" class="btn btn-primary actores-link" data-toggle="modal" data-target="#actoresModal-@serie.Id" data-actores="@serie.Id">Actores</a>
+        </div>
+    </div>
 }
 
-<div>
-    <h1>Nombre del Sitio</h1>
-    <img src="ruta-del-logo.jpg" alt="Logo">
-    <p>Slogan del Sitio</p>
-</div>
-
-
-
-<div>
-    @foreach (Serie serie in ViewBag.Series)
-    {
-        <div class="card" style="width: 18rem;">
-            <img src="@Url.Content(serie.ImagenSerie)" class="card-img-top" alt="Imagen de la serie">
-            <div class="card-body">
-                <h5 class="card-title">@serie.Nombre</h5>
-                <p class="card-text">@serie.Sinopsis</p>
-                <a href="#" class="btn btn-primary info-link" data-info="@serie.Sinopsis">Link a Información</a>
-                <a href="#" class="btn btn-primary temporadas-link" data-temporadas="@serie.Id">Link a Temporadas</a>
-                <a href="#" class="btn btn-primary actores-link" data-actores="@serie.Id">Link a Actores</a>
-               <a href="#" class="btn btn-primary info-link" data-toggle="modal" data-target="#serieModal" data-info="@serie.Sinopsis">Más información</a>
-                <a href="#" class="btn btn-primary temporadas-link" data-toggle="modal" data-target="#serieModal" data-temporadas="@serie.Id">Temporadas</a>
-            <a href="#" class="btn btn-primary actores-link" data-toggle="modal" data-target="#serieModal" data-actores="@serie.Id">Actores</a>
-</div>
+<!-- Modales para mostrar información de cada serie -->
+@foreach (Serie serie in ViewBag.Series)
+{
+    <div class="modal fade" id="serieModal-@serie.Id" tabindex="-1" role="dialog" aria-labelledby="serieModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="serieModalLabel">@serie.Nombre</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@serie.Sinopsis</p>
+                </div>
+            </div>
         </div>
-    }
-</div>
-
-
-
-
-
-<div id="infoModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="infoModalClose">&times;</span>
-        <h2>Información de la Serie</h2>
-        <p id="infoModalContent"></p>
     </div>
-</div>
 
+    <div class="modal fade" id="temporadasModal-@serie.Id" tabindex="-1" role="dialog" aria-labelledby="temporadasModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="temporadasModalLabel">Temporadas de @serie.Nombre</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="temporadasContent-@serie.Id">
+                    <!-- Aquí se mostrará la información de temporadas (vista parcial) -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-
-<script src="site.js"></script>
+    <div class="modal fade" id="actoresModal-@serie.Id" tabindex="-1" role="dialog" aria-labelledby="actoresModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="actoresModalLabel">Actores de @serie.Nombre</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="actoresContent-@serie.Id">
+                    <!-- Aquí se mostrará la información de actores (vista parcial) -->
+                </div>
+            </div>
+        </div>
+    </div>
+}

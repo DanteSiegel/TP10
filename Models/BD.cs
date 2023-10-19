@@ -31,5 +31,14 @@ namespace TP10.Models
                 return db.Query<Actor>("SELECT * FROM Actores WHERE IdSerie = @idSerie", new { idSerie }).ToList();
             }
         }
+        public static Serie GetMasInfo(int idSerie)
+{
+         using (SqlConnection db = new SqlConnection(ConnectionString))
+    {
+         return db.Query<Serie>("SELECT * FROM Series WHERE Id = @idSerie").FirstOrDefault();
+    }
+}
+
+        
     }
 }
